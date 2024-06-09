@@ -1,0 +1,35 @@
+### Requires REST Client for VS Code
+### https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+###
+@protocol = http
+@host = localhost
+@port = 4004
+### Read Pictures
+GET {{protocol}}://{{host}}:{{port}}/odata/v4/zebra-server/Media
+Authorization: Basic admin:
+
+### Create Picture with mediatype
+POST {{protocol}}://{{host}}:{{port}}/odata/v4/zebra-server/Media
+Authorization: Basic admin:
+Accept: application/json
+Content-Type: application/json
+
+{ 
+  "mediaType": "image/png" 
+}
+
+### Upload Binary PNG
+@id = f4f29d3e-84d9-4ade-a1b7-f7afd7cb0f6a
+PUT {{protocol}}://{{host}}:{{port}}/odata/v4/zebra-server/Media({{id}})/content
+Authorization: Basic admin:
+Content-Type: image/png
+
+< ./zcode.png
+
+### Read Binary
+GET {{protocol}}://{{host}}:{{port}}/odata/v4/zebra-server/Media({{id}})/content
+Authorization: Basic admin:
+
+### Delete Image
+DELETE {{protocol}}://{{host}}:{{port}}/odata/v4/zebra-server/Media({{id}})
+Authorization: Basic admin:
